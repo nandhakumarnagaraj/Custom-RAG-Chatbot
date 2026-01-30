@@ -70,4 +70,4 @@ curl "http://localhost:8080/api/rag/ask?question=What%20is%20this%20document%20a
 
 ### ✨ Author
 **Nandhakumar Nagaraj**  
-📫 Let's connect on [LinkedIn](https://www.linkedin.com/in/nandhakumar-nagaraj/)
+📫 Let's connect on [LinkedIn](https://linkedin.com/in/nandhakumar-nagaraj-458991211)
