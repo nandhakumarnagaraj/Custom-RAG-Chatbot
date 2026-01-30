@@ -1,0 +1,91 @@
+{
+  "test_scenarios": [
+    {
+      "id": "TS-001",
+      "name": "Upload and Query Resume",
+      "description": "Upload Premkumar Resume.pdf and ask questions about experience",
+      "steps": [
+        "Upload Premkumar Resume.pdf via POST /api/rag/upload",
+        "Wait for processing to complete",
+        "Ask: 'What is Premkumar's work experience?'",
+        "Ask: 'What technologies does Premkumar know?'",
+        "Ask: 'What is Premkumar's highest education?'"
+      ],
+      "expected_results": [
+        "Upload returns 200 OK",
+        "Questions return relevant answers from resume",
+        "Answers include specific details from the PDF"
+      ]
+    },
+    {
+      "id": "TS-002",
+      "name": "Spring AI Documentation Query",
+      "description": "Test with Spring AI technical documentation",
+      "steps": [
+        "Upload spring-ai-overview.txt",
+        "Ask: 'What are the key features of Spring AI?'",
+        "Ask: 'Which vector stores are supported?'",
+        "Ask: 'What document formats can Spring AI read?'"
+      ],
+      "expected_results": [
+        "Answers list: Chat models, Vector stores, Document readers, Embeddings, RAG",
+        "Vector stores: Chroma, Pinecone, Weaviate, PostgreSQL, SimpleVectorStore",
+        "Formats: PDF, DOCX, TXT, JSON, CSV"
+      ]
+    }
+  ],
+  "sample_questions": {
+    "resume_questions": [
+      "What is the candidate's name?",
+      "What programming languages does the candidate know?",
+      "What companies has the candidate worked for?",
+      "What is the candidate's educational background?",
+      "How many years of experience does the candidate have?",
+      "What are the candidate's key skills?",
+      "What projects has the candidate worked on?",
+      "What is the candidate's email address?",
+      "What certifications does the candidate have?"
+    ],
+    "technical_questions": [
+      "What is Spring AI?",
+      "How does RAG work?",
+      "What are vector databases?",
+      "What embedding models are supported?",
+      "How do you configure OpenAI in Spring AI?",
+      "What are the best practices for API key management?",
+      "What security considerations should be followed?"
+    ],
+    "edge_case_questions": [
+      "",
+      "Tell me everything about everything",
+      "What is the capital of France?",
+      "A",
+      "?" 
+    ]
+  },
+  "expected_responses": {
+    "resume_context_present": {
+      "type": "specific_answer",
+      "should_contain": ["experience", "skills", "education"],
+      "should_not_contain": ["I don't know", "no information"]
+    },
+    "no_context": {
+      "type": "default_message",
+      "expected_text": "I don't have enough information to answer that question from the loaded documents."
+    },
+    "error": {
+      "type": "error_response",
+      "should_contain": ["error", "failed"]
+    }
+  },
+  "test_data_files": {
+    "valid_documents": [
+      "Premkumar Resume.pdf",
+      "spring-ai-overview.txt"
+    ],
+    "invalid_documents": [
+      "empty.txt",
+      "corrupted.pdf"
+    ]
+  }
+}
